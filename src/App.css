@@ -1,8 +1,17 @@
 * {
   font-family: Arial;
+  margin: 0;
+  padding: 0;
 }
 
-h1 {
-  font-size: 55px;
-  color: darkblue;
+.container {
+  width: 75%;
+  padding-top: 15px;
+  margin: 0 auto;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
