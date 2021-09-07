@@ -1,18 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./styles.css";
 
-export default function MessagesList(props) {
-  const [messages, setMessages] = useState([]);
-
-  useEffect(() => {
-    setMessages(props.messages);
-  }, [props.messages]);
-
+export default function MessagesList({ messages }) {
   return (
     <div className="messagesContainer">
       {messages.map((el) => {
         return (
-          <div className="messageContainer">
+          <div className="messageContainer" key={el.id}>
             <div>{el.author}:</div>
             <div className="message">{el.message}</div>
           </div>

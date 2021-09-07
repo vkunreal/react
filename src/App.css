@@ -10,8 +10,20 @@
   margin: 0 auto;
 }
 
-.header {
+header {
   width: 100%;
   display: flex;
   justify-content: center;
+}
+
+main {
+  display: flex;
+}
+
+.chatSection {
+  width: 15%;
+}
+
+.messageSection {
+  width: 70%;
 }

@@ -1,11 +1,21 @@
 import { useState, useEffect } from "react";
 import MessagesList from "./components/MessageList";
 import Form from "./components/Form";
+import ChatList from "./components/ChatList";
 import "./App.css";
 
 function App() {
   const [messages, setMessages] = useState([]);
-  const [sendedMessages, setSendedMessages] = useState(0);
+  const [chats, setChats] = useState([
+    {
+      name: "Chat 1",
+      id: "chat-1",
+    },
+    {
+      name: "Chat 2",
+      id: "chat-2",
+    },
+  ]);
 
   const sendMessage = (message) => {
     setMessages([
@@ -13,10 +23,9 @@ function App() {
       {
         message,
         author: "You",
+        id: `message-${Date.now()}`,
       },
     ]);
-
-    setSendedMessages((prevValue) => prevValue + 1);
   };
 
   const botAnswer = () => {
@@ -25,22 +34,30 @@ function App() {
       {
         author: "Bot",
         message: "Hey, I'm Bot!",
+        id: `message-${Date.now()}`,
       },
     ]);
   };
 
   useEffect(() => {
-    if (sendedMessages) {
+    if (messages[messages.length - 1]?.author === "You") {
       setTimeout(botAnswer, 500);
     }
-  }, [sendedMessages]);
+  }, [messages]);
 
   return (
     <div className="container">
-      <div className="header">
+      <header>
         <Form onClick={sendMessage} />
-      </div>
-      <MessagesList messages={messages} />
+      </header>
+      <main>
+        <section className="chatSection">
+          <ChatList />
+        </section>
+        <section className="messageSection">
+          <MessagesList messages={messages} />
+        </section>
+      </main>
     </div>
   );
 }
