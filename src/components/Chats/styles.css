@@ -1,0 +1,17 @@
+.container {
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 15px;
+}
+
+main {
+  display: flex;
+}
+
+.chatSection {
+  width: 15%;
+}
+
+.chatContainer {
+  width: 85%;
+}

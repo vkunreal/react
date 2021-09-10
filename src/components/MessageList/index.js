@@ -1,17 +1,18 @@
 import React from "react";
 import "./styles.css";
 
-export default function MessagesList({ messages }) {
+export default function MessagesList({ chatsList, chatId }) {
   return (
     <div className="messagesContainer">
-      {messages.map((el) => {
-        return (
-          <div className="messageContainer" key={el.id}>
-            <div>{el.author}:</div>
-            <div className="message">{el.message}</div>
-          </div>
-        );
-      })}
+      {!!chatId &&
+        chatsList[chatId].map((el) => {
+          return (
+            <div className="messageContainer" key={el.id}>
+              <div>{el.author}:</div>
+              <div className="message">{el.text}</div>
+            </div>
+          );
+        })}
     </div>
   );
 }

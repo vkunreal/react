@@ -1,17 +1,12 @@
 import React, { useRef, useState, useEffect } from "react";
-import {
-  createMuiTheme,
-  ThemeProvider,
-  Fab,
-  TextField,
-} from "@material-ui/core";
+import { createTheme, ThemeProvider, Fab, TextField } from "@material-ui/core";
 import "./styles.css";
 
 export default function Form(props) {
   const [message, setMessage] = useState("");
   const inputRef = useRef(null);
 
-  const theme = createMuiTheme({
+  const theme = createTheme({
     pallete: {
       primary: {
         main: "#FF9800",

@@ -1,7 +1,11 @@
-import { List, ListItem, makeStyles } from "@material-ui/core";
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { List, ListItem, makeStyles, Button } from "@material-ui/core";
+import "./styles.css";
 
-export default function ChatList() {
+export default function ChatList({ chatsList }) {
+  const [chats, setChats] = useState([...chatsList]);
+
   const useStyles = makeStyles({
     list: {
       marginTop: "2px",
@@ -13,8 +17,13 @@ export default function ChatList() {
 
   return (
     <List className={classes.list}>
-      <ListItem button>Chat</ListItem>
-      <ListItem button>Chat</ListItem>
+      {chats.map((elem) => {
+        return (
+          <Link to={`/chats/${elem.id}`} className="chats-a" key={elem.id}>
+            <ListItem button>{elem.name}</ListItem>
+          </Link>
+        );
+      })}
     </List>
   );
 }
