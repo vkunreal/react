@@ -23,12 +23,9 @@ export default function Chats() {
   const { chatId } = useParams();
   let isHasLink;
 
-  console.log(parseInt(chatId) <= Object.keys(initChats).length);
-  console.log(parseInt(chatId.match(/\d+/)));
-
   if (
-    !!chatId &
-    (parseInt(chatId.match(/\d+/)) <= Object.keys(initChats).length)
+    !!chatId &&
+    parseInt(chatId.match(/\d+/)) <= Object.keys(initChats).length
   ) {
     isHasLink = true;
   } else {
@@ -39,7 +36,7 @@ export default function Chats() {
     <div className="container">
       <main>
         <section className="chatSection">
-          <ChatList chatsList={chats} />
+          <ChatList chatsList={chats} chatId={chatId} />
         </section>
 
         {isHasLink && (
