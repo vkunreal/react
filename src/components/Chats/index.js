@@ -3,15 +3,34 @@ import ChatList from "../ChatList";
 import Chat from "../Chat";
 import "./styles.css";
 
+// const initChats = {
+//   "chat-1": [
+//     { author: "You", text: "Hello!", id: "cht1-ms1" },
+//     { author: "You", text: "How are you?", id: "cht1-ms2" },
+//   ],
+//   "chat-2": [
+//     { author: "You", text: "Yeap!", id: "cht2-ms1" },
+//     { author: "You", text: "Nice weather today", id: "cht2-ms2" },
+//   ],
+// };
+
 const initChats = {
-  "chat-1": [
-    { author: "You", text: "Hello!", id: "cht1-ms1" },
-    { author: "You", text: "How are you?", id: "cht1-ms2" },
-  ],
-  "chat-2": [
-    { author: "You", text: "Yeap!", id: "cht2-ms1" },
-    { author: "You", text: "Nice weather today", id: "cht2-ms2" },
-  ],
+  "chat-1": {
+    name: "Chat 1",
+
+    messages: [
+      { author: "You", text: "Hello!", id: "cht1-ms1" },
+      { author: "You", text: "How are you?", id: "cht1-ms2" },
+    ],
+  },
+  "chat-2": {
+    name: "Chat 2",
+
+    messages: [
+      { author: "You", text: "Yeap!", id: "cht2-ms1" },
+      { author: "You", text: "Nice weather today", id: "cht2-ms2" },
+    ],
+  },
 };
 
 const chats = [
@@ -36,7 +55,7 @@ export default function Chats() {
     <div className="container">
       <main>
         <section className="chatSection">
-          <ChatList chatsList={chats} chatId={chatId} />
+          <ChatList chatsList={initChats} chatId={chatId} />
         </section>
 
         {isHasLink && (

@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { List, ListItem, makeStyles, Button } from "@material-ui/core";
+import { List, ListItem, makeStyles } from "@material-ui/core";
 import "./styles.css";
 
 export default function ChatList({ chatsList, chatId }) {
-  const [chats, setChats] = useState([...chatsList]);
+  const [chats] = useState([...Object.keys(chatsList)]);
+
+  let names = [];
+
+  for (const key of Object.keys(chatsList)) {
+    names.push(chatsList[key].name);
+  }
 
   const useStyles = makeStyles({
     list: {
@@ -28,13 +34,13 @@ export default function ChatList({ chatsList, chatId }) {
 
         return (
           <Link
-            to={`/chats/${elem.id}`}
+            to={`/chats/${elem}`}
+            key={elem}
             className="chats-a"
-            key={elem.id}
             selected={isInd}
           >
             <ListItem button selected={isInd}>
-              {elem.name}
+              {names[index]}
             </ListItem>
           </Link>
         );
