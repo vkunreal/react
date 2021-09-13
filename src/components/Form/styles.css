@@ -1,0 +1,24 @@
+.form {
+  display: flex;
+  gap: 5px;
+}
+
+.form input {
+  width: 350px;
+  height: 30px;
+  font-size: 20px;
+}
+
+.form button {
+  width: 100px;
+  height: 100%;
+  background-color: #0275d8;
+  border: 0;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.form button:hover {
+  background-color: #016bc7;
+}
