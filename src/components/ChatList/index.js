@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { List, ListItem, makeStyles } from "@material-ui/core";
 import "./styles.css";
 
-export default function ChatList({ chatsList, chatId }) {
+export default function ChatList({ chatsList, chatId, handleClick }) {
   const [chats] = useState([...Object.keys(chatsList)]);
 
   let names = [];
