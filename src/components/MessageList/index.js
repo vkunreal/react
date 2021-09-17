@@ -5,7 +5,7 @@ export default function MessagesList({ chatsList, chatId }) {
   return (
     <div className="messagesContainer">
       {!!chatId &&
-        chatsList[chatId].map((el) => {
+        chatsList[chatId].messages.map((el) => {
           return (
             <div className="messageContainer" key={el.id}>
               <div>{el.author}:</div>
