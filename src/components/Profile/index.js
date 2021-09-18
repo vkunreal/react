@@ -1,11 +1,12 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeName, toggleShowName } from "../../store/profile/actions";
+import { selectProfile } from "../../store/profile/selectors";
 import Form from "../Form";
 import "./styles.scss";
 
 export default function Profile() {
-  const profile = useSelector((state) => state.profile);
+  const profile = useSelector(selectProfile);
   const dispatch = useDispatch();
 
   let showName = profile.showName;

@@ -4,9 +4,11 @@ import Form from "../Form";
 import { addChatWithMessage, addMessage } from "../../store/messages/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { addChat } from "../../store/chats/actions";
+import { selectAuthor, selectMessages } from "../../store/messages/selectors";
 
 export default function Chat({ chatId }) {
-  const messages = useSelector((state) => state.messages);
+  const messages = useSelector(selectMessages);
+  const last = useSelector(selectAuthor(chatId));
   const dispatch = useDispatch();
 
   const sendMessage = (message) => {
@@ -24,7 +26,7 @@ export default function Chat({ chatId }) {
   };
 
   useEffect(() => {
-    if (messages[chatId][messages[chatId].length - 1].author === "You") {
+    if (last === "You") {
       setTimeout(botAnswer, 500);
     }
   }, [messages]);

@@ -1,13 +1,15 @@
-import { useHistory, useParams } from "react-router";
+import { useParams } from "react-router";
 import { useSelector } from "react-redux";
 import ChatList from "../ChatList";
 import Chat from "../Chat";
 import "./styles.scss";
+import { selectChats } from "../../store/chats/selectors";
+import { selectMessages } from "../../store/messages/selectors";
 
 export default function Chats() {
   const { chatId } = useParams();
-  const chats = useSelector((state) => state.chats);
-  const messages = useSelector((state) => state.messages);
+  const chats = useSelector(selectChats);
+  const messages = useSelector(selectMessages);
 
   let isHasLink;
 

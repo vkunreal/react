@@ -1,9 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { selectMessages } from "../../store/messages/selectors";
 import "./styles.scss";
 
 export default function MessagesList({ chatsList, chatId }) {
-  const chats = useSelector((state) => state.messages);
+  const chats = useSelector(selectMessages);
 
   return (
     <div className="messagesContainer">

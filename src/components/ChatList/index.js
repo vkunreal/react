@@ -5,9 +5,10 @@ import { Link } from "react-router-dom";
 import { List, ListItem, makeStyles } from "@material-ui/core";
 import { deleteChat } from "../../store/chats/actions";
 import "./styles.scss";
+import { selectChats } from "../../store/chats/selectors";
 
 export default function ChatList({ chatId }) {
-  const chats = useSelector((state) => state.chats);
+  const chats = useSelector(selectChats);
   const dispatch = useDispatch();
   const history = useHistory();
 
