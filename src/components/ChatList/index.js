@@ -1,11 +1,10 @@
-import React from "react";
 import { useHistory } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { List, ListItem, makeStyles } from "@material-ui/core";
 import { deleteChat } from "../../store/chats/actions";
-import "./styles.scss";
 import { selectChats } from "../../store/chats/selectors";
+import "./styles.scss";
 
 export default function ChatList({ chatId }) {
   const chats = useSelector(selectChats);

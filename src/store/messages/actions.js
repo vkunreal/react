@@ -16,3 +16,13 @@ export const addChatWithMessage = (id) => ({
     id,
   },
 });
+
+export const addMessageWithReply = (chatId, text, author) => (dispatch) => {
+  dispatch(addMessage(chatId, text, author));
+
+  if (author.toLowerCase() === "you") {
+    setTimeout(() => {
+      dispatch(addMessage(chatId, "Hey, I'm Bot!", "Bot"));
+    }, 500);
+  }
+};
