@@ -1,28 +1,33 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleShowName } from "../../store/profile/actions";
+import { changeName, toggleShowName } from "../../store/profile/actions";
+import Form from "../Form";
+import "./styles.scss";
 
 export default function Profile() {
-  const showName = useSelector((state) => state.showName);
+  const profile = useSelector((state) => state.profile);
   const dispatch = useDispatch();
 
-  const setShowName = () => {
+  let showName = profile.showName;
+
+  const handleShowName = () => {
     dispatch(toggleShowName);
   };
 
+  const handleClick = (name) => {
+    dispatch(changeName(name));
+  };
+
   return (
-    <div>
-      <h1>Profile</h1>
-      <label>
-        <input
-          type="checkbox"
-          value={showName}
-          cheked={showName}
-          onChange={setShowName}
-        />
-        Show name
-      </label>
-      <div>{showName && <h1>Your name.</h1>}</div>
+    <div className="profileContainer">
+      <div className="profileWrapper">
+        <Form text="Изменить" label="Имя" onClick={handleClick} />
+        <label>
+          <input type="checkbox" onChange={handleShowName} />
+          Show name
+        </label>
+        <div>{showName && <p>{profile.name}</p>}</div>
+      </div>
     </div>
   );
 }

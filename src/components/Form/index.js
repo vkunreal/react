@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { createTheme, ThemeProvider, Fab, TextField } from "@material-ui/core";
-import "./styles.css";
+import "./styles.scss";
 
 export default function Form({ onClick, label, text }) {
   const [message, setMessage] = useState("");
