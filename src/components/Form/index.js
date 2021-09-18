@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { createTheme, ThemeProvider, Fab, TextField } from "@material-ui/core";
 import "./styles.css";
 
-export default function Form(props) {
+export default function Form({ onClick, label, text }) {
   const [message, setMessage] = useState("");
   const inputRef = useRef(null);
 
@@ -28,7 +28,7 @@ export default function Form(props) {
       return;
     }
 
-    props.onClick(message);
+    onClick(message);
     setMessage("");
     inputRef.current?.focus();
   };
@@ -48,7 +48,7 @@ export default function Form(props) {
           <TextField
             value={message}
             onChange={changeMessage}
-            label="Сообщение"
+            label={label}
             inputRef={inputRef}
           />
         </div>
@@ -61,7 +61,7 @@ export default function Form(props) {
               borderColor: theme.palette.secondary.main,
             }}
           >
-            Отправить
+            {text}
           </Fab>
         </div>
       </form>

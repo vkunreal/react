@@ -1,35 +1,17 @@
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
+import { useSelector } from "react-redux";
 import ChatList from "../ChatList";
 import Chat from "../Chat";
-import "./styles.css";
-
-const initChats = {
-  "chat-1": {
-    name: "Chat 1",
-
-    messages: [
-      { author: "You", text: "Hello!", id: "cht1-ms1" },
-      { author: "You", text: "How are you?", id: "cht1-ms2" },
-    ],
-  },
-  "chat-2": {
-    name: "Chat 2",
-
-    messages: [
-      { author: "You", text: "Yeap!", id: "cht2-ms1" },
-      { author: "You", text: "Nice weather today", id: "cht2-ms2" },
-    ],
-  },
-};
+import "./styles.scss";
 
 export default function Chats() {
   const { chatId } = useParams();
+  const chats = useSelector((state) => state.chats);
+  const messages = useSelector((state) => state.messages);
+
   let isHasLink;
 
-  if (
-    !!chatId &&
-    parseInt(chatId.match(/\d+/)) <= Object.keys(initChats).length
-  ) {
+  if (chatId && chats.filter((elem) => elem.id === chatId).length) {
     isHasLink = true;
   } else {
     isHasLink = false;
@@ -39,12 +21,12 @@ export default function Chats() {
     <div className="container">
       <main>
         <section className="chatSection">
-          <ChatList chatsList={initChats} chatId={chatId} />
+          <ChatList chatId={chatId} />
         </section>
 
         {isHasLink && (
           <section className="chatContainer">
-            <Chat initChats={initChats} chatId={chatId} />
+            <Chat initChats={messages} chatId={chatId} />
           </section>
         )}
       </main>
