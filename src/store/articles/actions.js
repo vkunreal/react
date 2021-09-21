@@ -1,0 +1,38 @@
+import { API_URL } from "../../utils/constants";
+
+export const GET_ARTICLES = "ARTICLES::GET_ARTICLES";
+export const GET_ARTICLES_LOADING = "ARTICLES::GET_ARTICLES_LOADING";
+export const GET_ARTICLES_SUCCESS = "ARTICLES::GET_ARTICLES_SUCCESS";
+export const GET_ARTICLES_FAILURE = "ARTICLES::GET_ARTICLES_FAILURE";
+
+const getArticlesLoading = () => ({
+  type: GET_ARTICLES_LOADING,
+});
+
+const getArticlesSuccess = (articles) => ({
+  type: GET_ARTICLES_SUCCESS,
+  payload: articles,
+});
+
+const getArticlesFailure = (error) => ({
+  type: GET_ARTICLES_FAILURE,
+  payload: error,
+});
+
+export const getArticles = () => async (dispatch) => {
+  dispatch(getArticlesLoading());
+
+  try {
+    const res = await fetch(API_URL);
+
+    if (!res.ok) {
+      throw new Error(`Error: ${res.status}`);
+    }
+
+    const result = await res.json();
+    dispatch(getArticlesSuccess(result));
+  } catch (e) {
+    console.log(e);
+    dispatch(getArticlesFailure(e.message));
+  }
+};
