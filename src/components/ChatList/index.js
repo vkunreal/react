@@ -1,16 +1,33 @@
-import React, { useState } from "react";
+import React from "react";
+import { useHistory } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { List, ListItem, makeStyles } from "@material-ui/core";
-import "./styles.css";
+import { deleteChat } from "../../store/chats/actions";
+import "./styles.scss";
+import { selectChats } from "../../store/chats/selectors";
 
-export default function ChatList({ chatsList, chatId, handleClick }) {
-  const [chats] = useState([...Object.keys(chatsList)]);
+export default function ChatList({ chatId }) {
+  const chats = useSelector(selectChats);
+  const dispatch = useDispatch();
+  const history = useHistory();
 
-  let names = [];
+  const handleDeleteChat = (e) => {
+    const id = e.target.getAttribute("ind");
+    dispatch(deleteChat(id));
 
-  for (const key of Object.keys(chatsList)) {
-    names.push(chatsList[key].name);
-  }
+    if (chatId === id) {
+      const url =
+        chats[chats.indexOf(chats.filter((el) => el.id === id)[0]) - 1].id;
+      history.push(`/chats/${url}`);
+    } else {
+      return;
+    }
+  };
+
+  const names = chats.map((elem) => {
+    return elem.name;
+  });
 
   const useStyles = makeStyles({
     list: {
@@ -27,20 +44,25 @@ export default function ChatList({ chatsList, chatId, handleClick }) {
         let isInd;
 
         if (chatId) {
-          isInd = index + 1 === parseInt(chatId.match(/\d+/)) ? true : false;
+          isInd = chatId === elem.id;
         } else {
           isInd = false;
         }
 
         return (
           <Link
-            to={`/chats/${elem}`}
-            key={elem}
+            to={`/chats/${elem.id}`}
+            key={elem.id}
             className="chats-a"
             selected={isInd}
           >
-            <ListItem button selected={isInd}>
-              {names[index]}
+            <ListItem button selected={isInd} className="listItem">
+              <div className="chatItem">
+                {names[index]}
+                <span ind={elem.id} onClick={handleDeleteChat}>
+                  &#10006;
+                </span>
+              </div>
             </ListItem>
           </Link>
         );

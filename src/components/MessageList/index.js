@@ -1,11 +1,15 @@
 import React from "react";
-import "./styles.css";
+import { useSelector } from "react-redux";
+import { selectMessages } from "../../store/messages/selectors";
+import "./styles.scss";
 
 export default function MessagesList({ chatsList, chatId }) {
+  const chats = useSelector(selectMessages);
+
   return (
     <div className="messagesContainer">
       {!!chatId &&
-        chatsList[chatId].messages.map((el) => {
+        chats[chatId].map((el) => {
           return (
             <div className="messageContainer" key={el.id}>
               <div>{el.author}:</div>
