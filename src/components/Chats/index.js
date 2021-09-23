@@ -2,9 +2,9 @@ import { useParams } from "react-router";
 import { useSelector } from "react-redux";
 import ChatList from "../ChatList";
 import Chat from "../Chat";
-import "./styles.scss";
 import { selectChats } from "../../store/chats/selectors";
 import { selectMessages } from "../../store/messages/selectors";
+import "./styles.scss";
 
 export default function Chats() {
   const { chatId } = useParams();

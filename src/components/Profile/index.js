@@ -1,4 +1,3 @@
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeName, toggleShowName } from "../../store/profile/actions";
 import { selectProfile } from "../../store/profile/selectors";
