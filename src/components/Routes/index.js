@@ -6,15 +6,28 @@ import News from "../News";
 import Navbar from "../Navbar";
 import { useState } from "react";
 import { Registration } from "../Registration";
-import { login, logout, signUp } from "../../services/firebase";
+import { auth, login, logout, signUp } from "../../services/firebase";
+import { useEffect } from "react";
+import { onAuthStateChanged } from "@firebase/auth";
 
 export default function Routes() {
   const [authed, setAuthed] = useState(false);
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setAuthed(true);
+      } else {
+        setAuthed(false);
+      }
+    });
+
+    return unsubscribe;
+  }, []);
+
   const handleLogin = async (email, pass) => {
     try {
       await login(email, pass);
-      setAuthed(true);
     } catch (e) {
       console.log(e);
     }
@@ -23,7 +36,6 @@ export default function Routes() {
   const handleSignUp = async (email, pass) => {
     try {
       await signUp(email, pass);
-      setAuthed(true);
     } catch (e) {
       console.log(e);
     }
@@ -32,7 +44,6 @@ export default function Routes() {
   const handleLogout = async () => {
     try {
       await logout();
-      setAuthed(false);
     } catch (e) {
       console.log(e);
     }
