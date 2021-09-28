@@ -35,7 +35,7 @@ export default function News() {
       {error ? (
         <div>Error! {error}</div>
       ) : (
-        articles.map((elem) => <div>{elem.title}</div>)
+        articles.map((elem) => <div key={elem.id}>{elem.title}</div>)
       )}
       <button onClick={reload}>Refresh</button>
     </div>
