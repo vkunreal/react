@@ -12,7 +12,7 @@ const middlewares = [thunk];
 
 const persistConfig = {
   key: "root",
-  blacklist: ["messages"],
+  blacklist: ["messages", "chats"],
   storage,
 };
 
