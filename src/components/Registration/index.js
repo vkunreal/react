@@ -17,7 +17,11 @@ export const Registration = ({ onLogin, onSignUp }) => {
     setLogin("");
     setPass("");
 
-    onLogin();
+    if (onLogin) {
+      onLogin(login, pass);
+    } else {
+      onSignUp(login, pass);
+    }
   };
 
   return (

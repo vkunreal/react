@@ -6,22 +6,36 @@ import News from "../News";
 import Navbar from "../Navbar";
 import { useState } from "react";
 import { Registration } from "../Registration";
+import { login, logout, signUp } from "../../services/firebase";
 
 export default function Routes() {
   const [authed, setAuthed] = useState(false);
 
-  const handleLogin = () => {
-    console.log("login");
-    setAuthed(true);
+  const handleLogin = async (email, pass) => {
+    try {
+      await login(email, pass);
+      setAuthed(true);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
-  const handleSignUp = () => {
-    console.log("signup");
-    setAuthed(true);
+  const handleSignUp = async (email, pass) => {
+    try {
+      await signUp(email, pass);
+      setAuthed(true);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
-  const handleLogout = () => {
-    setAuthed(false);
+  const handleLogout = async () => {
+    try {
+      await logout();
+      setAuthed(false);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
