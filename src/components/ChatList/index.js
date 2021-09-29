@@ -7,7 +7,7 @@ import { selectChats } from "../../store/chats/selectors";
 import "./styles.scss";
 
 export default function ChatList({ chatId }) {
-  const chats = useSelector((state) => state.chats.chats);
+  const chats = useSelector(selectChats);
   const dispatch = useDispatch();
   const history = useHistory();
 

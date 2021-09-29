@@ -1,13 +1,13 @@
+import { useEffect } from "react";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import ChatList from "../ChatList";
 import Chat from "../Chat";
 import { selectChats } from "../../store/chats/selectors";
 import { selectMessages } from "../../store/messages/selectors";
-import "./styles.scss";
-import { useEffect } from "react";
 import { initMessages } from "../../store/messages/actions";
 import { initChats } from "../../store/chats/actions";
+import "./styles.scss";
 
 export default function Chats() {
   const { chatId } = useParams();
@@ -18,16 +18,19 @@ export default function Chats() {
     dispatch(initMessages());
   }, []);
 
-  const chats = useSelector((state) => state.chats.chats);
-  const messages = useSelector((state) => state.messages.messages);
+  const chats = useSelector(selectChats);
+  const messages = useSelector(selectMessages);
 
   let isHasLink = true;
 
-  // if (chatId && chats.filter((elem) => elem.id === chatId).length) {
-  //   isHasLink = true;
-  // } else {
-  //   isHasLink = false;
-  // }
+  if (
+    (chatId && chats.filter((elem) => elem.id === chatId).length) ||
+    !chats.length
+  ) {
+    isHasLink = true;
+  } else {
+    isHasLink = false;
+  }
 
   return (
     <div className="container">

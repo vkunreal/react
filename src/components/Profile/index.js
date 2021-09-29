@@ -1,7 +1,6 @@
-import { onValue, ref, set } from "@firebase/database";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { onValue, ref, set } from "@firebase/database";
 import { db } from "../../services/firebase";
 import { toggleShowName } from "../../store/profile/actions";
 import { selectShowName } from "../../store/profile/selectors";

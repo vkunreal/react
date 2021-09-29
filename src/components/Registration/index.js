@@ -1,5 +1,5 @@
-import { Button } from "@material-ui/core";
 import { useState } from "react";
+import { Button } from "@material-ui/core";
 
 export const Registration = ({ onLogin, onSignUp }) => {
   const [login, setLogin] = useState("");

@@ -1,6 +1,6 @@
-import { AUTHORS } from "../../utils/constants";
 import { ref, onValue, set } from "firebase/database";
 import { db } from "../../services/firebase";
+import { AUTHORS } from "../../utils/constants";
 
 export const ADD_MESSAGE = "MESSAGES::ADD_MESSAGE";
 export const ADD_CHAT_WITH_MESSAGES = "MESSAGES:ADD_CHAT_WITH_MESSAGES";
@@ -47,14 +47,29 @@ export const initMessages = () => (dispatch) => {
   });
 };
 
-export const addMessageDb = (chatId, text, author) => (dispatch) => {
-  const id = `message-${Date.now()}`;
+export const addMessageDb =
+  (chatId, text, author, botAnswer = false) =>
+  () => {
+    const id = `message-${Date.now()}`;
 
-  const messagesDbRef = ref(db, `messages/${chatId}/${id}`);
+    const messagesDbRef = ref(db, `messages/${chatId}/${id}`);
 
-  set(messagesDbRef, {
-    author,
-    text,
-    id,
-  });
-};
+    set(messagesDbRef, {
+      author,
+      text,
+      id,
+    });
+
+    if (botAnswer) {
+      setTimeout(() => {
+        const id = `message-${Date.now()}`;
+        const messagesDbRef = ref(db, `messages/${chatId}/${id}`);
+
+        set(messagesDbRef, {
+          author: AUTHORS.BOT,
+          text: `Hey, I'm ${AUTHORS.BOT}`,
+          id,
+        });
+      }, 500);
+    }
+  };

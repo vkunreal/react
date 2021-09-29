@@ -1,13 +1,12 @@
+import { useState, useEffect } from "react";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Home from "../Home";
 import Profile from "../Profile";
 import Chats from "../Chats";
 import News from "../News";
 import Navbar from "../Navbar";
-import { useState } from "react";
 import { Registration } from "../Registration";
 import { auth, login, logout, signUp } from "../../services/firebase";
-import { useEffect } from "react";
 import { onAuthStateChanged } from "@firebase/auth";
 
 export default function Routes() {

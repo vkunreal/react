@@ -4,7 +4,7 @@ import { Message } from "../Message";
 import "./styles.scss";
 
 export default function MessagesList({ chatId }) {
-  const messages = useSelector((state) => state.messages.messages)[chatId];
+  const messages = useSelector(selectMessages)[chatId];
 
   console.log(messages, "c");
 
