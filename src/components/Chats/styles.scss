@@ -4,6 +4,13 @@
   margin-top: 15px;
 }
 
+.messageAndChatCont {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
 main {
   display: flex;
 }

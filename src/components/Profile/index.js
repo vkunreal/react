@@ -1,21 +1,40 @@
-import React from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { onValue, ref, update } from "@firebase/database";
+import { db } from "../../services/firebase";
 import { changeName, toggleShowName } from "../../store/profile/actions";
-import { selectProfile } from "../../store/profile/selectors";
+import {
+  selectId,
+  selectShowName,
+  selectUserName,
+} from "../../store/profile/selectors";
 import Form from "../Form";
 import "./styles.scss";
 
-export default function Profile() {
-  const profile = useSelector(selectProfile);
+const Profile = () => {
+  const name = useSelector(selectUserName);
+  const userId = useSelector(selectId);
+
+  const showName = useSelector(selectShowName);
   const dispatch = useDispatch();
 
-  let showName = profile.showName;
+  useEffect(() => {
+    const userDbRef = ref(db, `profile/${userId}`);
+    onValue(userDbRef, (snapshot) => {
+      const data = snapshot.val();
+      const username = data?.username;
+      dispatch(changeName(username));
+    });
+  }, [userId]);
 
   const handleShowName = () => {
     dispatch(toggleShowName);
   };
 
   const handleClick = (name) => {
+    update(ref(db, `profile/${userId}`), {
+      username: name,
+    });
     dispatch(changeName(name));
   };
 
@@ -23,12 +42,14 @@ export default function Profile() {
     <div className="profileContainer">
       <div className="profileWrapper">
         <Form text="Изменить" label="Имя" onClick={handleClick} />
-        <label>
-          <input type="checkbox" onChange={handleShowName} />
+        <label className="profileLabel">
+          <input type="checkbox" onChange={handleShowName} value={showName} />
           Show name
         </label>
-        <div>{showName && <p>{profile.name}</p>}</div>
+        <div>{showName && <p>{name}</p>}</div>
       </div>
     </div>
   );
-}
+};
+
+export default Profile;

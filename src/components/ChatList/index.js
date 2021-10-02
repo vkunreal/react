@@ -1,33 +1,31 @@
-import React from "react";
-import { useHistory } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { List, ListItem, makeStyles } from "@material-ui/core";
-import { deleteChat } from "../../store/chats/actions";
-import "./styles.scss";
+import { deleteChatFb } from "../../store/chats/actions";
 import { selectChats } from "../../store/chats/selectors";
+import "./styles.scss";
 
-export default function ChatList({ chatId }) {
+const ChatList = ({ chatId }) => {
   const chats = useSelector(selectChats);
+  const userId = useSelector((state) => state.profile.id);
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const handleDeleteChat = (e) => {
     const id = e.target.getAttribute("ind");
-    dispatch(deleteChat(id));
-
-    if (chatId === id) {
-      const url =
-        chats[chats.indexOf(chats.filter((el) => el.id === id)[0]) - 1].id;
-      history.push(`/chats/${url}`);
-    } else {
-      return;
-    }
+    dispatch(deleteChatFb(id));
   };
 
-  const names = chats.map((elem) => {
-    return elem.name;
-  });
+  const names = chats.map((elem) => elem.name);
+
+  const isHaveUser = (users) => {
+    let isHave = false;
+
+    Object.keys(users).forEach((item) => {
+      if (users[item] == userId) isHave = true;
+    });
+
+    return isHave;
+  };
 
   const useStyles = makeStyles({
     list: {
@@ -49,24 +47,28 @@ export default function ChatList({ chatId }) {
           isInd = false;
         }
 
-        return (
-          <Link
-            to={`/chats/${elem.id}`}
-            key={elem.id}
-            className="chats-a"
-            selected={isInd}
-          >
-            <ListItem button selected={isInd} className="listItem">
-              <div className="chatItem">
-                {names[index]}
-                <span ind={elem.id} onClick={handleDeleteChat}>
-                  &#10006;
-                </span>
-              </div>
-            </ListItem>
-          </Link>
-        );
+        if (isHaveUser(elem.users)) {
+          return (
+            <Link
+              to={`/chats/${elem.id}`}
+              key={elem.id}
+              className="chats-a"
+              selected={isInd}
+            >
+              <ListItem button selected={isInd} className="listItem">
+                <div className="chatItem">
+                  {names[index]}
+                  <span ind={elem.id} onClick={handleDeleteChat}>
+                    &#10006;
+                  </span>
+                </div>
+              </ListItem>
+            </Link>
+          );
+        }
       })}
     </List>
   );
-}
+};
+
+export default ChatList;

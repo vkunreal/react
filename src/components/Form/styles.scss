@@ -17,8 +17,8 @@
   color: white;
   cursor: pointer;
   border-radius: 5px;
-}
 
-.messageForm button:hover {
-  background-color: #016bc7;
+  &:hover {
+    background-color: #016bc7;
+  }
 }

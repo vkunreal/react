@@ -1,50 +1,45 @@
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import MessagesList from "../MessageList";
 import Form from "../Form";
-import { addChatWithMessage, addMessage } from "../../store/messages/actions";
-import { useDispatch, useSelector } from "react-redux";
-import { addChat } from "../../store/chats/actions";
-import { selectAuthor, selectMessages } from "../../store/messages/selectors";
+import { selectMessages } from "../../store/messages/selectors";
+import { addMessageDb } from "../../store/messages/actions";
+import { selectUserName } from "../../store/profile/selectors";
+import "./styles.scss";
 
-export default function Chat({ chatId }) {
+export const setScroll = () => {
+  const div = document.getElementsByClassName("messagesContainer")[0];
+  div.scrollTop = div.scrollHeight;
+};
+
+const Chat = ({ chatId }) => {
   const messages = useSelector(selectMessages);
-  const last = useSelector(selectAuthor(chatId));
+  const name = useSelector(selectUserName);
+
   const dispatch = useDispatch();
 
   const sendMessage = (message) => {
-    dispatch(addMessage(chatId, message, "You"));
+    dispatch(addMessageDb(chatId, message, name));
   };
 
-  const botAnswer = () => {
-    dispatch(addMessage(chatId, "Hey, I'm Bot!", "Bot"));
-  };
-
-  const handleAddChat = (name) => {
-    const id = `chat-${Date.now()}`;
-    dispatch(addChatWithMessage(id));
-    dispatch(addChat(name, id));
-  };
-
-  useEffect(() => {
-    if (last === "You") {
-      setTimeout(botAnswer, 500);
-    }
-  }, [messages]);
+  useEffect(() => setScroll(), []);
 
   return (
     <div>
-      <div>
+      <section>
+        <MessagesList chatsList={messages} chatId={chatId} />
+      </section>
+
+      <section className="messageFormCont">
         <Form
           className="messageForm"
           onClick={sendMessage}
           label="Сообщение"
           text="Отправить"
         />
-      </div>
-      <section>
-        <MessagesList chatsList={messages} chatId={chatId} />
-        <Form label="Чат" text="Добавить" onClick={handleAddChat} />
       </section>
     </div>
   );
-}
+};
+
+export default Chat;

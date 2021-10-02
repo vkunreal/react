@@ -1,14 +1,36 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router";
+import { Button } from "@material-ui/core";
+import "./styles.scss";
 
-export default function Home() {
+const Home = ({ authed, onLogout }) => {
+  const history = useHistory();
+
+  const handleLogin = () => history.push("/login");
+  const handleSignUp = () => history.push("/signup");
+  const handleLogout = () => onLogout();
+
   return (
-    <div>
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/profile">Profile</Link>
-        <Link to="/chats">Chats</Link>
-      </nav>
+    <div className="homeCont">
+      <h2>Home</h2>
+
+      <div>
+        {!authed ? (
+          <div className="homeBtnsCont">
+            <Button variant="outlined" onClick={handleLogin}>
+              Login
+            </Button>
+            <Button variant="outlined" onClick={handleSignUp}>
+              Sign up
+            </Button>
+          </div>
+        ) : (
+          <Button variant="outlined" onClick={handleLogout}>
+            Sign out
+          </Button>
+        )}
+      </div>
     </div>
   );
-}
+};
+
+export default Home;

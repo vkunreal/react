@@ -1,17 +1,27 @@
 .messagesContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding-top: 10px;
+  margin-bottom: 10px;
+  max-height: 72vh;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    background-color: #f9f9fd;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: rgb(196, 196, 196);
+  }
+
+  &::-webkit-scrollbar-track {
+    --webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    background-color: #f9f9fd;
+  }
 }
 
 .messageContainer {
   width: 100%;
   padding: 10px;
   border: 1px solid #eee;
-}
-
-.message {
-  margin-top: 5px;
-  margin-left: 5px;
 }
