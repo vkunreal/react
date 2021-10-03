@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { createTheme, ThemeProvider, Fab, TextField } from "@material-ui/core";
+import { Fab, TextField } from "@material-ui/core";
 import "./styles.scss";
 
 const Form = ({ onClick, label, text }) => {

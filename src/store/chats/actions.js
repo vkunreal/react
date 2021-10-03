@@ -1,5 +1,4 @@
-import { ref, onValue, set, get, update, child } from "firebase/database";
-import { useSelector } from "react-redux";
+import { ref, onValue, set, get, child } from "firebase/database";
 import { db } from "../../services/firebase";
 import { initMessages } from "../messages/actions";
 
@@ -37,8 +36,7 @@ const isHaveUser = (users, userId) => {
   let isHave = false;
 
   Object.keys(users).forEach((item) => {
-    console.log(users[item] == userId);
-    if (users[item] == userId) isHave = true;
+    if (users[item] === userId) isHave = true;
   });
 
   return isHave;
@@ -65,14 +63,13 @@ export const addChatFb = (name, fromUserId, toUser, id) => () => {
         set(chatsDbRef, {
           id,
           name,
-          users: [fromUserId, toUserId],
+          users: [Number(fromUserId), Number(toUserId)],
         });
 
         return;
       }
 
       Object.keys(data).forEach((item) => {
-        console.log(data[item] == toUserId, "lol");
         if (isHaveUser(data[item].users, toUserId)) isHave = true;
       });
 

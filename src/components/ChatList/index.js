@@ -21,7 +21,7 @@ const ChatList = ({ chatId }) => {
     let isHave = false;
 
     Object.keys(users).forEach((item) => {
-      if (users[item] == userId) isHave = true;
+      if (users[item] === userId) isHave = true;
     });
 
     return isHave;

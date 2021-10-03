@@ -25,7 +25,7 @@ const Profile = () => {
       const username = data?.username;
       dispatch(changeName(username));
     });
-  }, [userId]);
+  }, [userId, dispatch]);
 
   const handleShowName = () => {
     dispatch(toggleShowName);

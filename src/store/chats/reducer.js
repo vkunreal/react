@@ -1,5 +1,3 @@
-import { child, get, ref, update } from "@firebase/database";
-import { db } from "../../services/firebase";
 import { ADD_CHAT, DELETE_CHAT, SET_CHATS } from "./actions";
 
 const initialState = {

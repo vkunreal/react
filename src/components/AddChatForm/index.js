@@ -4,7 +4,6 @@ import { addChatFb } from "../../store/chats/actions";
 import { addMessageDb } from "../../store/messages/actions";
 import { Fab, TextField } from "@material-ui/core";
 import "./styles.scss";
-import { selectId } from "../../store/profile/selectors";
 
 const AddChatForm = () => {
   const [name, setName] = useState("");

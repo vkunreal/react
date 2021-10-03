@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, CircularProgress } from "@material-ui/core";
 import { getArticles } from "../../store/articles/actions";
@@ -16,13 +16,13 @@ const News = () => {
   const loading = useSelector(selectArticlesLoading);
   const articles = useSelector(selectArticles);
 
-  const reload = () => {
+  const reload = useCallback(() => {
     dispatch(getArticles());
-  };
+  }, [dispatch]);
 
   useEffect(() => {
     reload();
-  }, []);
+  }, [reload]);
 
   return (
     <div className="newsCont">

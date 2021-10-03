@@ -21,7 +21,7 @@ const Chats = () => {
   useEffect(() => {
     dispatch(initChats());
     dispatch(initMessages());
-  }, []);
+  }, [dispatch]);
 
   const chats = useSelector(selectChats);
   const messages = useSelector(selectMessages);
@@ -49,7 +49,7 @@ const Chats = () => {
 
       dispatch(changeName(name));
     });
-  }, []);
+  }, [dispatch, id]);
 
   return (
     <div className="container">
