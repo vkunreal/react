@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { List, ListItem, makeStyles } from "@material-ui/core";
 import { deleteChatFb } from "../../store/chats/actions";
 import { selectChats } from "../../store/chats/selectors";
+import { selectId } from "../../store/profile/selectors";
 import "./styles.scss";
 
 const ChatList = ({ chatId }) => {
   const chats = useSelector(selectChats);
-  const userId = useSelector((state) => state.profile.id);
+  const userId = useSelector(selectId);
   const dispatch = useDispatch();
 
   const handleDeleteChat = (e) => {

@@ -38,12 +38,18 @@ export const Registration = ({ onLogin, onSignUp }) => {
     }
   };
 
+  const keyUp = (e) => {
+    if (e.key === "Enter") {
+      handleClick();
+    }
+  };
+
   return (
     <div className="loginCont">
       <h2>{onLogin ? "Login:" : "Sign Up:"}</h2>
 
       <div>
-        <form className="loginForm">
+        <form className="loginForm" onKeyUp={keyUp}>
           <TextField
             type="text"
             placeholder="Login"

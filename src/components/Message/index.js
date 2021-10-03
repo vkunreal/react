@@ -1,6 +1,7 @@
+import React from "react";
 import "./styles.scss";
 
-export const Message = ({ author, text, messClass }) => {
+export const Message = React.memo(({ author, text, messClass }) => {
   const className = `messageContainer ${messClass}`;
 
   return (
@@ -9,4 +10,4 @@ export const Message = ({ author, text, messClass }) => {
       <div className="message">{text}</div>
     </div>
   );
-};
+});

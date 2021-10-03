@@ -1,7 +1,8 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import "./styles.scss";
 
-const Navbar = () => {
+const Navbar = React.memo(() => {
   return (
     <header>
       <ul>
@@ -20,6 +21,6 @@ const Navbar = () => {
       </ul>
     </header>
   );
-};
+});
 
 export default Navbar;
