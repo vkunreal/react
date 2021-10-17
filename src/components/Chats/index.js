@@ -29,7 +29,10 @@ const Chats = () => {
 
   let isHasLink = true;
 
-  if (chatId && chats.filter((elem) => elem.id === chatId).length) {
+  if (
+    (chatId && chats.filter((elem) => elem.id === chatId).length) ||
+    !chats.length
+  ) {
     isHasLink = true;
   } else {
     isHasLink = false;

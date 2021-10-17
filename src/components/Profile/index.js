@@ -14,7 +14,6 @@ import "./styles.scss";
 const Profile = () => {
   const name = useSelector(selectUserName);
   const userId = useSelector(selectId);
-
   const showName = useSelector(selectShowName);
   const dispatch = useDispatch();
 
