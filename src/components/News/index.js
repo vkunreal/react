@@ -1,7 +1,6 @@
-import { CircularProgress } from "@material-ui/core";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { CircularProgress } from "@material-ui/core";
 import { getArticles } from "../../store/articles/actions";
 import {
   selectArticles,
@@ -35,7 +34,7 @@ export default function News() {
       {error ? (
         <div>Error! {error}</div>
       ) : (
-        articles.map((elem) => <div>{elem.title}</div>)
+        articles.map((elem) => <div key={elem.id}>{elem.title}</div>)
       )}
       <button onClick={reload}>Refresh</button>
     </div>

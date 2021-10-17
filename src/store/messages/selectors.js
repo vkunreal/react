@@ -1,4 +1,4 @@
-export const selectMessages = (state) => state.messages;
+export const selectMessages = (state) => state.messages.messages;
 
 export const selectAuthor = (chatId) => (state) => {
   const messages = state.messages;
