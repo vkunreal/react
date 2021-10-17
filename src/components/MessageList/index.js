@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { selectMessages } from "../../store/messages/selectors";
 import { Message } from "../Message";
+import "./styles.scss";
 
 export default function MessagesList({ chatId }) {
   const chats = useSelector(selectMessages);
