@@ -5,16 +5,16 @@ export const GET_ARTICLES_LOADING = "ARTICLES::GET_ARTICLES_LOADING";
 export const GET_ARTICLES_SUCCESS = "ARTICLES::GET_ARTICLES_SUCCESS";
 export const GET_ARTICLES_FAILURE = "ARTICLES::GET_ARTICLES_FAILURE";
 
-const getArticlesLoading = () => ({
+export const getArticlesLoading = () => ({
   type: GET_ARTICLES_LOADING,
 });
 
-const getArticlesSuccess = (articles) => ({
+export const getArticlesSuccess = (articles) => ({
   type: GET_ARTICLES_SUCCESS,
   payload: articles,
 });
 
-const getArticlesFailure = (error) => ({
+export const getArticlesFailure = (error) => ({
   type: GET_ARTICLES_FAILURE,
   payload: error,
 });

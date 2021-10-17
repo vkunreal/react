@@ -1,7 +1,8 @@
-import { Button } from "@material-ui/core";
 import { useHistory } from "react-router";
+import { Button } from "@material-ui/core";
+import "./styles.scss";
 
-export default function Home({ authed, onLogout }) {
+const Home = ({ authed, onLogout }) => {
   const history = useHistory();
 
   const handleLogin = () => history.push("/login");
@@ -9,19 +10,19 @@ export default function Home({ authed, onLogout }) {
   const handleLogout = () => onLogout();
 
   return (
-    <div>
+    <div className="homeCont">
       <h2>Home</h2>
 
       <div>
         {!authed ? (
-          <>
+          <div className="homeBtnsCont">
             <Button variant="outlined" onClick={handleLogin}>
               Login
             </Button>
             <Button variant="outlined" onClick={handleSignUp}>
               Sign up
             </Button>
-          </>
+          </div>
         ) : (
           <Button variant="outlined" onClick={handleLogout}>
             Sign out
@@ -30,4 +31,6 @@ export default function Home({ authed, onLogout }) {
       </div>
     </div>
   );
-}
+};
+
+export default Home;

@@ -1,7 +1,7 @@
 import { ref, onValue, set } from "firebase/database";
+import { setScroll } from "../../components/Chat";
 import { db } from "../../services/firebase";
 import { AUTHORS } from "../../utils/constants";
-
 export const ADD_MESSAGE = "MESSAGES::ADD_MESSAGE";
 export const ADD_CHAT_WITH_MESSAGES = "MESSAGES:ADD_CHAT_WITH_MESSAGES";
 export const SET_MESSAGES = "MESSAGES::SET_MESSAGES";
@@ -48,7 +48,7 @@ export const initMessages = () => (dispatch) => {
 };
 
 export const addMessageDb =
-  (chatId, text, author, botAnswer = false) =>
+  (chatId, text, author, botAnswer = false, setScrolling = true) =>
   () => {
     const id = `message-${Date.now()}`;
 
@@ -58,6 +58,8 @@ export const addMessageDb =
       author,
       text,
       id,
+    }).then(() => {
+      if (setScrolling) setScroll();
     });
 
     if (botAnswer) {
@@ -69,6 +71,8 @@ export const addMessageDb =
           author: AUTHORS.BOT,
           text: `Hey, I'm ${AUTHORS.BOT}`,
           id,
+        }).then(() => {
+          if (setScrolling) setScroll();
         });
       }, 500);
     }

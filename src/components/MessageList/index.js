@@ -1,19 +1,26 @@
 import { useSelector } from "react-redux";
-import { selectMessages } from "../../store/messages/selectors";
 import { Message } from "../Message";
+import { selectMessages } from "../../store/messages/selectors";
+import { selectUserName } from "../../store/profile/selectors";
 import "./styles.scss";
 
-export default function MessagesList({ chatId }) {
+const MessagesList = ({ chatId }) => {
   const messages = useSelector(selectMessages)[chatId];
-
-  console.log(messages, "c");
+  const author = useSelector(selectUserName);
 
   return (
     <div className="messagesContainer">
       {chatId &&
         Object.values(messages).map((el) => (
-          <Message key={el.id} author={el.author} text={el.text} />
+          <Message
+            messClass={author === el.author ? "authMess" : "foreignMess"}
+            key={el.id}
+            author={el.author}
+            text={el.text}
+          />
         ))}
     </div>
   );
-}
+};
+
+export default MessagesList;

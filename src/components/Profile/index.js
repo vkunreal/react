@@ -1,34 +1,40 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { onValue, ref, set } from "@firebase/database";
+import { onValue, ref, update } from "@firebase/database";
 import { db } from "../../services/firebase";
-import { toggleShowName } from "../../store/profile/actions";
-import { selectShowName } from "../../store/profile/selectors";
+import { changeName, toggleShowName } from "../../store/profile/actions";
+import {
+  selectId,
+  selectShowName,
+  selectUserName,
+} from "../../store/profile/selectors";
 import Form from "../Form";
 import "./styles.scss";
 
-export default function Profile() {
-  const [name, setName] = useState("");
-
+const Profile = () => {
+  const name = useSelector(selectUserName);
+  const userId = useSelector(selectId);
   const showName = useSelector(selectShowName);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const userDbRef = ref(db, "profile");
+    const userDbRef = ref(db, `profile/${userId}`);
     onValue(userDbRef, (snapshot) => {
       const data = snapshot.val();
-      setName(data?.username || "");
+      const username = data?.username;
+      dispatch(changeName(username));
     });
-  }, []);
+  }, [userId, dispatch]);
 
   const handleShowName = () => {
     dispatch(toggleShowName);
   };
 
   const handleClick = (name) => {
-    set(ref(db, "profile"), {
+    update(ref(db, `profile/${userId}`), {
       username: name,
     });
+    dispatch(changeName(name));
   };
 
   return (
@@ -43,4 +49,6 @@ export default function Profile() {
       </div>
     </div>
   );
-}
+};
+
+export default Profile;

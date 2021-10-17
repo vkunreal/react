@@ -1,5 +1,5 @@
-import { ADD_MESSAGE, ADD_CHAT_WITH_MESSAGES, SET_MESSAGES } from "./actions";
-import { DELETE_CHAT, ADD_CHAT } from "../chats/actions";
+import { ADD_MESSAGE, SET_MESSAGES } from "./actions";
+import { DELETE_CHAT } from "../chats/actions";
 
 const initialState = {
   messages: {},

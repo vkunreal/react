@@ -1,7 +1,8 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import "./styles.scss";
 
-export default function Navbar() {
+const Navbar = React.memo(() => {
   return (
     <header>
       <ul>
@@ -20,4 +21,6 @@ export default function Navbar() {
       </ul>
     </header>
   );
-}
+});
+
+export default Navbar;

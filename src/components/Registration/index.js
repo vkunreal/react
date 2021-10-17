@@ -1,12 +1,21 @@
 import { useState } from "react";
-import { Button } from "@material-ui/core";
+import { useHistory } from "react-router";
+import { TextField, Button } from "@material-ui/core";
+import "./styles.scss";
 
 export const Registration = ({ onLogin, onSignUp }) => {
   const [login, setLogin] = useState("");
+  const [name, setName] = useState("");
   const [pass, setPass] = useState("");
+
+  const history = useHistory();
 
   const loginChange = (e) => {
     setLogin(e.target.value);
+  };
+
+  const nameChange = (e) => {
+    setName(e.target.value);
   };
 
   const passChange = (e) => {
@@ -15,29 +24,49 @@ export const Registration = ({ onLogin, onSignUp }) => {
 
   const handleClick = () => {
     setLogin("");
+    setName("");
     setPass("");
 
     if (onLogin) {
-      onLogin(login, pass);
+      onLogin(login, pass).then(() => {
+        history.push("/profile");
+      });
     } else {
-      onSignUp(login, pass);
+      onSignUp(login, name, pass).then(() => {
+        history.push("/profile");
+      });
+    }
+  };
+
+  const keyUp = (e) => {
+    if (e.key === "Enter") {
+      handleClick();
     }
   };
 
   return (
-    <div>
+    <div className="loginCont">
       <h2>{onLogin ? "Login:" : "Sign Up:"}</h2>
 
       <div>
-        <form>
-          <input
+        <form className="loginForm" onKeyUp={keyUp}>
+          <TextField
             type="text"
-            placeholder={onLogin ? "Login" : "Sign Up"}
+            placeholder="Login"
             value={login}
             onChange={loginChange}
           />
 
-          <input
+          {onSignUp && (
+            <TextField
+              type="text"
+              placeholder="Name"
+              value={name}
+              onChange={nameChange}
+            />
+          )}
+
+          <TextField
             type="password"
             placeholder="Password"
             value={pass}
